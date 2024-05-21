@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #fff;
+    transition: opacity 0.5s;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.fruit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fruit-list li {
+    display: inline-block;
+    margin: 10px;
+}
+
+.fruit-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.fruit-img:hover {
+    transform: scale(1.1);
+}
+
+button {
+    background: #ff7f50;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background: #ff6347;
+    transform: scale(1.05);
+}
+
+#timer {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
