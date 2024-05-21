@@ -1,0 +1,68 @@
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+# Define the lists with proper variable names
+list1 = ["mango", "papaya", "grape", "orange", "jackfruit", "mulberry"]
+list2 = ["mango", "apple", "grape", "orange", "lemon", "jackfruit", "watermelon"]
+list3 = ["apple", "mango", "orange", "papaya", "lemon"]
+list4 = ["mango", "apple", "papaya", "grape", "banana"]
+
+# Combine all the lists into a list of lists for easier access
+all_lists = [list1, list2, list3, list4]
+
+# List of fruits
+fruits = ["mango", "apple", "papaya", "grape", "orange", "lemon", "banana", "jackfruit", "watermelon", "mulberry"]
+
+# Mapping of sums to fruits
+sum_to_fruit_index = {
+    10: 0,  # 1st fruit (mango)
+    9: 1,   # 2nd fruit (apple)
+    8: 2,   # 3rd fruit (papaya)
+    7: 3,   # 4th fruit (grape)
+    6: 4,   # 5th fruit (orange)
+    5: 5,   # 6th fruit (lemon)
+    4: 6,   # 7th fruit (banana)
+    3: 7,   # 8th fruit (jackfruit)
+    2: 8,   # 9th fruit (watermelon)
+    1: 9    # 10th fruit (mulberry)
+}
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/page/<int:page_num>', methods=['GET', 'POST'])
+def page(page_num):
+    if request.method == 'POST':
+        responses = request.form.get('responses')
+        if responses:
+            responses = list(map(int, responses.split(',')))
+        else:
+            responses = [0] * 4
+
+        response = request.form['response']
+        if response == 'yes':
+            responses[page_num - 1] = page_num
+
+        if page_num == 4:
+            total_sum = sum(responses)
+            if total_sum in sum_to_fruit_index:
+                fruit_index = sum_to_fruit_index[total_sum]
+                result = fruits[fruit_index]
+            else:
+                result = "No matching fruit found."
+            return redirect(url_for('result', result=result))
+
+        return redirect(url_for('page', page_num=page_num + 1, responses=','.join(map(str, responses))))
+
+    responses = request.args.get('responses', '')
+    return render_template('page.html', page_num=page_num, fruit_list=all_lists[page_num - 1], responses=responses)
+
+@app.route('/result')
+def result():
+    result = request.args.get('result')
+    return render_template('result.html', result=result)
+
+if __name__ == '__main__':
+    app.run(debug=True)
