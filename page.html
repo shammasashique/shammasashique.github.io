@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fruit Guessing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fruit Guessing Game</h1>
+        <p>Page {{ page_num }} contains:</p>
+        <ul class="fruit-list">
+            {% for fruit in fruit_list %}
+                <li>{{ fruit }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post">
+            <input type="hidden" name="responses" value="{{ responses }}">
+            <label>Is your imagined fruit in this list?</label>
+            <button type="submit" name="response" value="yes">Yes</button>
+            <button type="submit" name="response" value="no">No</button>
+        </form>
+    </div>
+</body>
+</html>
